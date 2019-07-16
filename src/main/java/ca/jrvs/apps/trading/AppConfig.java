@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
@@ -21,14 +23,17 @@ public class AppConfig {
 
   @Bean
   public PlatformTransactionManager txManager(DataSource dataSource) {
+    return null;
   }
 
   @Bean
   public MarketDataConfig marketDataConfig() {
+    return null;
   }
 
   @Bean
   public DataSource dataSource() {
+    return null;
   }
 
   //http://bit.ly/2tWTmzQ connectionPool

@@ -1,11 +1,23 @@
 package ca.jrvs.apps.trading;
 
 public class MarketDataConfig {
+
+    String host;
+    String token;
+
     public String getHost() {
-        return null;
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
     }
 
     public String getToken() {
-        return null;
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

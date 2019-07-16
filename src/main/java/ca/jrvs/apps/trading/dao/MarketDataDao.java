@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Repository;
 import java.io.IOException;
-import java.nio.charset.CoderResult;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
