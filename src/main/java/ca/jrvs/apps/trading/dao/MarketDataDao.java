@@ -1,8 +1,8 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.IexQuote;
-import ca.jrvs.apps.trading.MarketDataConfig;
-import ca.jrvs.apps.trading.TradingUtil;
+import ca.jrvs.apps.trading.util.MarketDataConfig;
+import ca.jrvs.apps.trading.util.TradingUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.base.Joiner;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -66,6 +66,8 @@ public class MarketDataDao {
     if (quoteList.size() != tickerList.size()) {
         throw new IllegalArgumentException("Invalid ticker/symbol");
     }
+
+    logger.info("quote list size: " + quoteList.size());
     //Unmarshal JSON object
     return quoteList;
   }

@@ -1,4 +1,4 @@
-package ca.jrvs.apps.trading;
+package ca.jrvs.apps.trading.util;
 
 import ca.jrvs.apps.trading.dao.MarketDataDao;
 import org.slf4j.Logger;
@@ -17,8 +17,8 @@ public class MarketDataConfig {
 
   @Autowired
     public MarketDataConfig(
-          @Value("${host}") String host,
-          @Value("${token}") String token) {
+          @Value("${iex.host}") String host,
+          @Value("${iex.token}") String token) {
         logger.info("[RESOLVED] host: " + host);
         this.host = host;
         this.token = token;
