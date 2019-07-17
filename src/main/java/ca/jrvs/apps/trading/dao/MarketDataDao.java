@@ -2,6 +2,8 @@ package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.IexQuote;
 import ca.jrvs.apps.trading.MarketDataConfig;
+import ca.jrvs.apps.trading.TradingUtil;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.base.Joiner;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -13,11 +15,11 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.context.config.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +31,6 @@ public class MarketDataDao {
 
   private final String BATCH_QUOTE_URL;
   private HttpClientConnectionManager httpClientConnectionManager;
-//  private MarketDataConfig config;
 
   @Autowired
   public MarketDataDao(HttpClientConnectionManager httpClientConnectionManager,
@@ -43,27 +44,33 @@ public class MarketDataDao {
   /*
    * @throws DataRetrievalFailureException if unable to get http response
    */
-  public List<IexQuote> findIexQuoteByTicker(List<String> tickerList) throws URISyntaxException {
+  public List<IexQuote> findIexQuoteByTicker(List<String> tickerList) throws URISyntaxException, IOException {
     String tickers =  Joiner.on(',').join(tickerList);
     String uriStr = String.format(BATCH_QUOTE_URL, tickers);
     URIBuilder uriBuilder = new URIBuilder(uriStr.trim());
-//    uriBuilder.addParameter("tickers", tickers);
     String uri = uriBuilder.toString();
     //convert list into comma separated string
     logger.info("Get URI:" + uri);
     //Get Http response body in string
     String response = executeHttpGet(uri);
+    List<IexQuote> quoteList = new ArrayList<>();
+
+    // iterate through response json tickers
+    for (JsonNode node: TradingUtil.readTree(response)) {
+      if(node.has("quote")) {
+        IexQuote quote = TradingUtil.toObjectFromJson(node.findValue("quote").toString(), IexQuote.class);
+        quoteList.add(quote);
+      }
+    }
     //Iex will skip invalid symbols/ticker..we need to check it
-    String iexQuotesJson = null;
-    if (iexQuotesJson.length() != tickerList.size()) {
+    if (quoteList.size() != tickerList.size()) {
         throw new IllegalArgumentException("Invalid ticker/symbol");
     }
-
     //Unmarshal JSON object
-    return null;
+    return quoteList;
   }
 
-  public IexQuote findIexQuoteByTicker(String ticker) throws URISyntaxException {
+  public IexQuote findIexQuoteByTicker(String ticker) throws URISyntaxException, IOException {
     List<IexQuote> quotes = findIexQuoteByTicker(Arrays.asList(ticker));
     if (quotes == null || quotes.size() != 1) {
       throw new RuntimeException("Unable to get data");

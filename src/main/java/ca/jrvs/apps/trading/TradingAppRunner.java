@@ -5,6 +5,7 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.log4j.BasicConfigurator;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
@@ -21,6 +22,8 @@ public class TradingAppRunner {
         try {
             this.marketDataDao.findIexQuoteByTicker(Arrays.asList("GOOG","MSFT"));
         } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
