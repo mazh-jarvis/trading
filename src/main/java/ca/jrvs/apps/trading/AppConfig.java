@@ -7,42 +7,41 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+//import org.springframework.transaction.PlatformTransactionManager;
+//import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
+//@EnableTransactionManagement
 @Configuration
-@EnableTransactionManagement
 public class AppConfig {
 
-  private Logger logger = LoggerFactory.getLogger(AppConfig.class);
+    private Logger logger = LoggerFactory.getLogger(AppConfig.class);
 
-  @Value("${iex.host}")
-  private String iex_host;
-
+  /*@Value("${iex.host}")
+  private String iex_host;*/
+/*
   @Bean
   public PlatformTransactionManager txManager(DataSource dataSource) {
     return null;
-  }
+  }*/
 
-  @Bean
+  /*@Bean
   public MarketDataConfig marketDataConfig() {
     return null;
-  }
+  }*/
 
-  @Bean
-  public DataSource dataSource() {
-    return null;
-  }
+    @Bean
+    public DataSource dataSource() {
+        return null;
+    }
 
-  //http://bit.ly/2tWTmzQ connectionPool
-  @Bean
-  public HttpClientConnectionManager httpClientConnectionManager() {
-    PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-    cm.setMaxTotal(50);
-    cm.setDefaultMaxPerRoute(50);
-    return cm;
-  }
+    //http://bit.ly/2tWTmzQ connectionPool
+    @Bean
+    public HttpClientConnectionManager httpClientConnectionManager() {
+        PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+        cm.setMaxTotal(50);
+        cm.setDefaultMaxPerRoute(50);
+        return cm;
+    }
 }
-
