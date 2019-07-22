@@ -1,11 +1,14 @@
-/*
-package ca.jrvs.apps.trading;
+package ca.jrvs.apps.trading.controller;
 
+import ca.jrvs.apps.trading.IexQuote;
+import ca.jrvs.apps.trading.Quote;
 import ca.jrvs.apps.trading.dao.MarketDataDao;
 import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.service.QuoteService;
 import java.util.Collections;
 import java.util.List;
+
+import ca.jrvs.apps.trading.util.ResponseExceptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-// TODO: Don't commit unless there is working copy
 @Controller
 @RequestMapping("/quote")
 public class QuoteController {
@@ -46,7 +48,7 @@ public class QuoteController {
 
   @PutMapping(path = "/")
   @ResponseStatus(HttpStatus.OK)
-  public void putQuote(@RequestBody IexQuote quote) {
+  public void putQuote(@RequestBody Quote quote) {
     try {
       quoteDao.update(Collections.singletonList(quote));
     } catch (Exception e) {
@@ -68,7 +70,7 @@ public class QuoteController {
   @GetMapping(path = "/dailyList")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<IexQuote> getDailyList() {
+  public List<Quote> getDailyList() {
     try {
       return quoteDao.findAll();
     } catch (Exception e) {
@@ -87,4 +89,3 @@ public class QuoteController {
     }
   }
 }
-*/

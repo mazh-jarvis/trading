@@ -15,6 +15,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -66,7 +67,6 @@ public class MarketDataDao {
     if (quoteList.size() != tickerList.size()) {
         throw new IllegalArgumentException("Invalid ticker/symbol");
     }
-
     logger.info("quote list size: " + quoteList.size());
     //Unmarshal JSON object
     return quoteList;
@@ -76,7 +76,6 @@ public class MarketDataDao {
     List<IexQuote> quotes = findIexQuoteByTicker(Arrays.asList(ticker));
     if (quotes == null || quotes.size() != 1) {
       throw new RuntimeException("Unable to get data");
-//      throw new DataRetrievalFailureException("Unable to get data");
     }
     return quotes.get(0);
   }
@@ -92,17 +91,14 @@ public class MarketDataDao {
             return Optional.ofNullable(body).orElseThrow(
                 () -> new IOException("Unexpected empty http response body"));
           case 404:
-            throw new RuntimeException("Not found", null);
+            throw new DataRetrievalFailureException("Not found");
           default:
-            return null;
-            /*throw new DataRetrievalFailureException(
-                "Unexpected status:" + response.getStatusLine().getStatusCode());*/
+            throw new DataRetrievalFailureException("Unexpected status:" + response.getStatusLine().getStatusCode());
         }
       }
     } catch (IOException e) {
-//      throw new DataRetrievalFailureException("Unable Http execution error", e);
+      throw new DataRetrievalFailureException("Unable Http execution error", e);
     }
-    return null;
   }
 
   private CloseableHttpClient getHttpClient() {

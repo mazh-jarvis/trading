@@ -14,8 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 
-//import org.springframework.jdbc.datasource.*;
-
 @Repository
 public class TraderDao implements CrudRepository<Trader, Integer> {
 
