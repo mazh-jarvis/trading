@@ -25,15 +25,13 @@
       <groupId>nl.42</groupId>
       <artifactId>spring-boot-docker-postgres</artifactId>
     </dependency>
-      <dependency>
-          <groupId>org.apache.directory.studio</groupId>
-          <artifactId>org.slf4j.api</artifactId>
-          <version>1.7.2</version>
-      </dependency>
+    <dependency>
+        <groupId>org.apache.directory.studio</groupId>
+        <artifactId>org.slf4j.api</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-        <version>1.8.0-beta2</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -55,10 +53,12 @@
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger2</artifactId>
+      <version>2.9.1</version>
     </dependency>
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger-ui</artifactId>
+      <version>2.9.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -78,34 +78,20 @@
       <artifactId>spring-boot-autoconfigure</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.minlingchao1</groupId>
-      <artifactId>spring-boot-dynamic-datasource-starter</artifactId>
-      <version>1.0.0</version>
-    </dependency>
-    <dependency>
       <groupId>com.google.collections</groupId>
       <artifactId>google-collections</artifactId>
-      <version>1.0</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot</artifactId>
-      <!--<version>1.5.10.RELEASE</version>-->
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
-      <version>20180130</version>
-    </dependency>
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20180130</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
-      <version>5.1.6.RELEASE</version>
     </dependency>
   </dependencies>
 
