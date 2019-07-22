@@ -1,6 +1,6 @@
 package ca.jrvs.apps.trading.dao;
 
-import ca.jrvs.apps.trading.IexQuote;
+import ca.jrvs.apps.trading.model.dto.IexQuote;
 import ca.jrvs.apps.trading.util.MarketDataConfig;
 import ca.jrvs.apps.trading.util.TradingUtil;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -46,7 +46,9 @@ public class MarketDataDao {
    * @throws DataRetrievalFailureException if unable to get http response
    */
   public List<IexQuote> findIexQuoteByTicker(List<String> tickerList) throws URISyntaxException, IOException {
-    String tickers =  Joiner.on(',').join(tickerList);
+//    String tickers =  Joiner.on(',').join(tickerList);
+//    String tickers = TradingUtil.join(",", tickerList);
+    String tickers = String.join(",", tickerList);
     String uriStr = String.format(BATCH_QUOTE_URL, tickers);
     URIBuilder uriBuilder = new URIBuilder(uriStr.trim());
     String uri = uriBuilder.toString();

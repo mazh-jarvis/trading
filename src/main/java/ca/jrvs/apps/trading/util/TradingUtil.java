@@ -11,6 +11,7 @@ import org.apache.http.cookie.params.CookieSpecPNames;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.List;
 
 public class TradingUtil {
 
@@ -100,4 +101,5 @@ public class TradingUtil {
     public static Iterable<? extends JsonNode> readTree(String json) throws IOException {
         return getMapper().readTree(json);
     }
+
 }

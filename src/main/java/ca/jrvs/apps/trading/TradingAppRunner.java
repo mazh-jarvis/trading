@@ -1,8 +1,7 @@
 package ca.jrvs.apps.trading;
 
+import ca.jrvs.apps.trading.controller.QuoteController;
 import ca.jrvs.apps.trading.dao.MarketDataDao;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.log4j.BasicConfigurator;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -12,19 +11,26 @@ import java.util.Arrays;
 @Component
 public class TradingAppRunner {
 
-    private MarketDataDao marketDataDao;
+/*    private MarketDataDao marketDataDao;
 
     public TradingAppRunner(MarketDataDao marketDataDao) {
         this.marketDataDao = marketDataDao;
+    }*/
+    private QuoteController controller;
+
+    public TradingAppRunner(QuoteController controller) {
+        this.controller = controller;
     }
 
     public void run(String[] args){
-        try {
+
+        
+/*        try {
             this.marketDataDao.findIexQuoteByTicker(Arrays.asList("GOOG","MSFT"));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

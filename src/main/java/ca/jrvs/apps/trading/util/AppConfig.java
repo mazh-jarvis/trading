@@ -31,10 +31,10 @@ public class AppConfig {
   }*/
 
     @Bean
-    public DataSource dataSource(@Value("{app.db.driver}") String driver,
-                                 @Value("{app.db.url}") String jdbcUrl,
-                                 @Value("{app.db.user}") String user,
-                                 @Value("{app.db.password}") String password) {
+    public DataSource dataSource(@Value("${app.db.driver}") String driver,
+                                 @Value("${app.db.url}") String jdbcUrl,
+                                 @Value("${app.db.user}") String user,
+                                 @Value("${app.db.password}") String password) {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(driver);
         dataSource.setUrl(jdbcUrl);

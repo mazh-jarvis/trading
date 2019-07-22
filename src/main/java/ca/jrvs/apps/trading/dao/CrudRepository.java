@@ -2,9 +2,9 @@ package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.Trader;
 
-public interface CrudRepository<T, T1> {
-    Trader save(Trader entity);
-    Trader findById(Integer id);
-    boolean existsById(Integer id);
-    void deleteById(Integer id);
+public interface CrudRepository<T, I> {
+    T save(T entity);
+    T findById(I id);
+    boolean existsById(I id);
+    void deleteById(I id);
 }

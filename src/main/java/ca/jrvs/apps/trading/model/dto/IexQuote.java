@@ -1,4 +1,4 @@
-package ca.jrvs.apps.trading;
+package ca.jrvs.apps.trading.model.dto;
 
 import java.util.HashMap;
 import java.util.Map;
