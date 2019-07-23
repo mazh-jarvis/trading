@@ -1,11 +1,12 @@
 package ca.jrvs.apps.trading.model.domain;
 
 import ca.jrvs.apps.trading.model.Entity;
+import ca.jrvs.apps.trading.model.enums.Status;
 
 public class SecurityOrder extends Entity {
 
     private long account_id;
-    private String status;
+    private Status status;
     private String ticker;
     private long size;
     private double price;
@@ -20,11 +21,11 @@ public class SecurityOrder extends Entity {
     }
 
     public String getStatus() {
-        return status;
+        return status.getStatus();
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.status = Status.valueOf(status);
     }
 
     public String getTicker() {
