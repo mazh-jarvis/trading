@@ -45,7 +45,6 @@ public class QuoteService {
         Quote quote = buildQuoteFromIexQuote(iexQuote);
         List<Quote> quoteList = Arrays.asList(quote);
         quoteDao.update(quoteList);
-        //quoteDao.update(Arrays.asList(buildQuoteFromIexQuote(iexQuote)));
     }
 
     /**

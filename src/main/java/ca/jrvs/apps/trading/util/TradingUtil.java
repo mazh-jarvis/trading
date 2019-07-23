@@ -11,20 +11,13 @@ import org.apache.http.cookie.params.CookieSpecPNames;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.List;
 
 public class TradingUtil {
 
     public static final int HTTP_OK = 200;
     // service constants
-    public static final String INVALID_EX_MSG = "Received a tweet with no content";
-
-    public static final String SERVICE_USAGE_TEMP = "Usage: java -jar java_apps.jar";
-
     public static final String COOKIE_DATE_FORMAT = "EEE, d MMM yyyy HH:mm:ss z";
-    public static final String POST_SUCCESS_MSG_FORMAT = "# Success: a new tweet was posted (id: %s)\n";
-
-    public static final int CMD_ARG_INDEX = 2;
+    public static final String COMMA = ",";
     // Json object mapper singleton
     private static ObjectMapper mapper;
 

@@ -7,14 +7,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import javax.sql.RowSet;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class QuoteDao extends JdbcCrudDao {
@@ -38,8 +34,10 @@ public class QuoteDao extends JdbcCrudDao {
     }
 
     public List<Quote> findAll() {
-        List<Quote> quotes = this.jdbcTemplate.query("select ticker,last_price,bid_price,bid_size,ask_price,ask_size from public.quote",
-                new BeanPropertyRowMapper<>(Quote.class));
+        /*List<Quote> quotes = this.jdbcTemplate.query("select ticker,last_price,bid_price,bid_size,ask_price,ask_size from public.quote",
+                new BeanPropertyRowMapper<>(Quote.class));*/
+        String query = new QueryBuilder().selectAll().fromDB(TABLE_NAME).toString();
+        List<Quote> quotes = this.jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Quote.class));
         return quotes;
     }
 
