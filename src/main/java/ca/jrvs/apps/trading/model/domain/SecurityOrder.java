@@ -3,8 +3,9 @@ package ca.jrvs.apps.trading.model.domain;
 import ca.jrvs.apps.trading.model.Entity;
 import ca.jrvs.apps.trading.model.enums.Status;
 
-public class SecurityOrder extends Entity {
+public class SecurityOrder implements Entity<Integer> {
 
+    private int id;
     private int account_id;
     private Status status;
     private String ticker;
@@ -12,33 +13,25 @@ public class SecurityOrder extends Entity {
     private double price;
     private String notes;
 
-    public int getAccount_id() {
-        return account_id;
-    }
+    @Override
+    public Integer getId() { return this.id; }
 
-    public void setAccount_id(int account_id) {
-        this.account_id = account_id;
-    }
+    @Override
+    public void setId(Integer id) { this.id = id; }
 
-    public String getStatus() {
-        return status.getStatus();
-    }
+    public int getAccount_id() { return account_id; }
 
-    public void setStatus(String status) {
-        this.status = Status.valueOf(status);
-    }
+    public void setAccount_id(int account_id) { this.account_id = account_id; }
 
-    public String getTicker() {
-        return ticker;
-    }
+    public String getStatus() { return status.getStatus(); }
 
-    public void setTicker(String ticker) {
-        this.ticker = ticker;
-    }
+    public void setStatus(String status) { this.status = Status.valueOf(status); }
 
-    public int getSize() {
-        return size;
-    }
+    public String getTicker() { return ticker; }
+
+    public void setTicker(String ticker) { this.ticker = ticker; }
+
+    public int getSize() { return size; }
 
     public void setSize(int size) {
         this.size = size;

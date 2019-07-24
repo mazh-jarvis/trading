@@ -4,17 +4,22 @@ import ca.jrvs.apps.trading.model.Entity;
 
 import java.sql.Date;
 
-public class Trader extends Entity {
+public class Trader implements Entity<Integer> {
 
+    private int id;
     private String first_name;
     private String last_name;
     private Date date;
     private String country;
     private String email;
 
-    public String getFirst_name() {
-        return first_name;
-    }
+    @Override
+    public Integer getId() { return this.id; }
+
+    @Override
+    public void setId(Integer id) { this.id = id; }
+
+    public String getFirst_name() { return first_name; }
 
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
