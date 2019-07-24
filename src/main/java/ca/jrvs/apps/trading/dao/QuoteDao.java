@@ -36,7 +36,7 @@ public class QuoteDao extends JdbcCrudDao {
     public List<Quote> findAll() {
         /*List<Quote> quotes = this.jdbcTemplate.query("select ticker,last_price,bid_price,bid_size,ask_price,ask_size from public.quote",
                 new BeanPropertyRowMapper<>(Quote.class));*/
-        String query = new QueryBuilder().selectAll().fromDB(TABLE_NAME).toString();
+        String query = new QueryBuilder().selectAll().from(TABLE_NAME).toString();
         List<Quote> quotes = this.jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Quote.class));
         return quotes;
     }

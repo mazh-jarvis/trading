@@ -1,13 +1,13 @@
 package ca.jrvs.apps.trading.model;
 
 public class Entity {
-    private long id;
+    private int id;
 
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(long value) {
+    public void setId(int value) {
         this.id = value;
     }
 }

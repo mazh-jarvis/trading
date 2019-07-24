@@ -5,18 +5,18 @@ import ca.jrvs.apps.trading.model.enums.Status;
 
 public class SecurityOrder extends Entity {
 
-    private long account_id;
+    private int account_id;
     private Status status;
     private String ticker;
-    private long size;
+    private int size;
     private double price;
     private String notes;
 
-    public long getAccount_id() {
+    public int getAccount_id() {
         return account_id;
     }
 
-    public void setAccount_id(long account_id) {
+    public void setAccount_id(int account_id) {
         this.account_id = account_id;
     }
 
@@ -36,11 +36,11 @@ public class SecurityOrder extends Entity {
         this.ticker = ticker;
     }
 
-    public long getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(long size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
