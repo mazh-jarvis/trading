@@ -37,7 +37,7 @@ public class TraderController {
     @ApiOperation(value = "Create a trader and associated account")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    @PostMapping(path = "/firstname/{firstname}/lastname/{lastname}/dob/{dob}/country/{country}",
+    @PostMapping(path = "/firstname/{firstname}/lastname/{lastname}/dob/{dob}/country/{country}/email/{email}",
             produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public TraderAccountView createTrader(@PathVariable String firstname, @PathVariable String lastname,
                                           @PathVariable @DateTimeFormat(pattern = TradingUtil.DATE_PATTERN)LocalDate dob,
