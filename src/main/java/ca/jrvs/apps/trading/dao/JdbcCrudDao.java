@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 public abstract class JdbcCrudDao<E extends Entity, ID> implements CrudRepository<E, ID> {
 
   private static final Logger logger = LoggerFactory.getLogger(JdbcCrudDao.class);
+  private static final String NULL_ID_EX = "ID can't be null";
 
   abstract public JdbcTemplate getJdbcTemplate();
 
@@ -52,7 +53,7 @@ public abstract class JdbcCrudDao<E extends Entity, ID> implements CrudRepositor
   @SuppressWarnings("unchecked")
   public E findById(String idName, ID id, boolean forUpdate, Class clazz) {
     E t = null;
-    String selectSql = "SELECT * FROM " + getTableName() + " WHERE " + idName + " =?";
+    String selectSql = new QueryBuilder().selectAll().from(getTableName()).where(idName).isParameterized().toString();
 
     //Advanced: handle read + update race condition
     if (forUpdate) {
@@ -80,9 +81,9 @@ public abstract class JdbcCrudDao<E extends Entity, ID> implements CrudRepositor
 
   public boolean existsById(String idName, ID id) {
     if (id == null) {
-      throw new IllegalArgumentException("ID can't be null");
+      throw new IllegalArgumentException(NULL_ID_EX);
     }
-    String selectSql = "SELECT count(*) FROM " + getTableName() + " WHERE " + idName + " =?";
+    String selectSql = new QueryBuilder().selectCount().from(getTableName()).where(idName).isParameterized().toString();
     logger.info(selectSql);
     Integer count = getJdbcTemplate()
         .queryForObject(selectSql,
@@ -98,9 +99,9 @@ public abstract class JdbcCrudDao<E extends Entity, ID> implements CrudRepositor
 
   public void deleteById(String idName, ID id) {
     if (id == null) {
-      throw new IllegalArgumentException("ID can't be null");
+      throw new IllegalArgumentException(NULL_ID_EX);
     }
-    String deleteSql = "DELETE FROM " + getTableName() + " WHERE " + idName + " =?";
+    String deleteSql = new QueryBuilder().deleteFrom(getTableName()).where(idName).isParameterized().toString();
     logger.info(deleteSql);
     getJdbcTemplate().update(deleteSql, id);
   }

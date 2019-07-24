@@ -39,11 +39,27 @@ public class QueryBuilder {
         return this;
     }
 
+    public QueryBuilder isParameterized() {
+        this.query.append(EQUAL_CHAR).append('?');
+        spaceOut();
+        return this;
+    }
     public QueryBuilder and(String attribute) {
         this.query.append("AND ").append(attribute);
         spaceOut();
         return this;
     }
+
+    public QueryBuilder selectCount() {
+        return select("count(*)");
+    }
+
+    public QueryBuilder deleteFrom(String column) {
+        this.query.append("DELETE FROM ").append(column);
+        spaceOut();
+        return this;
+    }
+
     /**
      * Append space to query. Use when the last appended value is a variable.
      */
@@ -55,5 +71,4 @@ public class QueryBuilder {
     public String toString() {
         return this.query.toString();
     }
-
 }
