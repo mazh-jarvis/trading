@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class PositionDao {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountDao.class);
@@ -20,6 +22,7 @@ public class PositionDao {
     private static final String TICKER_ID = "ticker_id";
     private static final String POSITION_TABLE = "position";
     private static final String PARAM = "?";
+    private static final String ID_NAME = "position";
 
     private JdbcTemplate jdbcTemplate;
 

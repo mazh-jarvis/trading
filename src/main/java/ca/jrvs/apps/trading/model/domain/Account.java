@@ -30,7 +30,5 @@ public class Account implements Entity<Integer> {
         return amount;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+    public void setAmount(double amount) { this.amount = amount; }
 }

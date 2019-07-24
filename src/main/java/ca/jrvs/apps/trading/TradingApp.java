@@ -18,7 +18,7 @@ import java.util.Arrays;
         {JdbcTemplateAutoConfiguration.class,
                 DataSourceAutoConfiguration.class,
                 HibernateJpaAutoConfiguration.class})
-@EnableConfigurationProperties
+//@EnableConfigurationProperties
 public class TradingApp implements CommandLineRunner {
 
     @Autowired
