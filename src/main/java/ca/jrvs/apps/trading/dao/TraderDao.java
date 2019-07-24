@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 
 @Repository
-public class TraderDao implements CrudRepository<Trader, Integer> {
+public class TraderDao extends JdbcCrudDao<Trader, Integer> { //CrudRepository<Trader, Integer> {
 
   private static final Logger logger = LoggerFactory.getLogger(TraderDao.class);
 
@@ -48,7 +48,7 @@ public class TraderDao implements CrudRepository<Trader, Integer> {
     Trader trader = null;
     try {
       trader = jdbcTemplate
-          .queryForObject("select * from " + TABLE_NAME + " where id = ?",
+              .queryForObject(new QueryBuilder().selectAll().from(TABLE_NAME).where("id").is("?").toString(),
               BeanPropertyRowMapper.newInstance(Trader.class), id);
     } catch (EmptyResultDataAccessException e) {
       logger.debug("Can't find trader id:" + id, e);
@@ -62,7 +62,27 @@ public class TraderDao implements CrudRepository<Trader, Integer> {
   }
 
   @Override
-  public void deleteById(Integer id) {
+  public JdbcTemplate getJdbcTemplate() {
+    return this.jdbcTemplate;
+  }
 
+  @Override
+  public SimpleJdbcInsert getSimpleJdbcInsert() {
+    return this.simpleInsert;
+  }
+
+  @Override
+  public String getTableName() {
+    return TABLE_NAME;
+  }
+
+  @Override
+  public String getIdName() {
+    return ID_COLUMN;
+  }
+
+  @Override
+  Class getEntityClass() {
+    return Trader.class;
   }
 }
