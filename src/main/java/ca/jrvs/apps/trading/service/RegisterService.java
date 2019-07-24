@@ -76,17 +76,15 @@ public class RegisterService {
    */
   public void deleteTraderById(Integer traderId) {
       List<Position> positionList = positionDao.findByTraderId(traderId);
-      if (positionList.isEmpty()) throw new IllegalArgumentException("No position with trader id: " + traderId);
-      Position position = positionList.get(0);
+      if (positionList.isEmpty() == false)
+          throw new IllegalArgumentException("Cannot delete an account with any associated positions");
 
-      int accountId = position.getAccount_id();
-      Account account = accountDao.findById(accountId);
-      if (account.getAmount() != 0)
-          throw new IllegalArgumentException("Cannot delete an account with a non-zero balance");
+      Account account = accountDao.findByTraderId(traderId);
+      int accountId = account.getId();
 
       securityOrderDao.deleteById(accountId);
       accountDao.deleteById(accountId);
-      traderDao.deleteById(account.getTrader_id());
+      traderDao.deleteById(traderId);
   }
 
     public AccountDao getAccountDao() {
