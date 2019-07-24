@@ -30,9 +30,6 @@ public class PositionDao {
 
     public List<Position> findByTraderId(Integer accountId) {
         String query = new QueryBuilder().selectAll().from(TABLE_NAME).where(ACCOUNT_ID).is(PARAM).toString();
-        // todo: rm comment
-        /*List<Position> positionList = jdbcTemplate.query(query, BeanPropertyRowMapper.newInstance(Position.class), accountId);
-        if (positionList.isEmpty()) throw new IllegalArgumentException("No position with account id: " + accountId);*/
         return jdbcTemplate.query(query, BeanPropertyRowMapper.newInstance(Position.class), accountId);
     }
 

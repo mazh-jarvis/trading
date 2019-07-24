@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
-// TODO
 public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder, Integer> {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountDao.class);

@@ -17,7 +17,6 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-// TODO
 @Service
 public class RegisterService {
 

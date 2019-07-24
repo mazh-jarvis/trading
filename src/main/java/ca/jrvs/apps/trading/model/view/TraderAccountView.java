@@ -3,7 +3,6 @@ package ca.jrvs.apps.trading.model.view;
 import ca.jrvs.apps.trading.model.domain.Account;
 import ca.jrvs.apps.trading.model.domain.Trader;
 
-// TODO
 public class TraderAccountView {
 
     Trader trader;
