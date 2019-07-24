@@ -9,7 +9,7 @@ public class Trader implements Entity<Integer> {
     private int id;
     private String first_name;
     private String last_name;
-    private Date date;
+    private Date dob;
     private String country;
     private String email;
 
@@ -33,14 +33,6 @@ public class Trader implements Entity<Integer> {
         this.last_name = last_name;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public String getCountry() {
         return country;
     }
@@ -56,4 +48,8 @@ public class Trader implements Entity<Integer> {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Date getDob() { return this.dob; }
+
+    public void setDob(Date date) { this.dob = date; }
 }
