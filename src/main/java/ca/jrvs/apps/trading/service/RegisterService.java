@@ -90,4 +90,7 @@ public class RegisterService {
       traderDao.deleteById(account.getTrader_id());
   }
 
+    public AccountDao getAccountDao() {
+        return accountDao;
+    }
 }

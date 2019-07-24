@@ -10,47 +10,51 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class FundTransferService {
 
-  private AccountDao accountDao;
+    private AccountDao accountDao;
 
-  @Autowired
-  public FundTransferService(AccountDao accountDao) {
-    this.accountDao = accountDao;
-  }
+    @Autowired
+    public FundTransferService(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
 
-  /**
-   * Deposit a fund to the account which is associated with the traderId
-   * - validate user input
-   * - account = accountDao.findByTraderId
-   * - accountDao.updateAmountById
-   *
-   * @param traderId trader id
-   * @param fund found amount (can't be 0)
-   * @return updated Account object
-   * @throws ca.jrvs.apps.trading.dao.ResourceNotFoundException if ticker is not found from IEX
-   * @throws org.springframework.dao.DataAccessException if unable to retrieve data
-   * @throws IllegalArgumentException for invalid input
-   */
-  public Account deposit(Integer traderId, Double fund) {
-    // TODO
-    return null;
-  }
+    /**
+     * Deposit a fund to the account which is associated with the traderId
+     * - validate user input
+     * - account = accountDao.findByTraderId
+     * - accountDao.updateAmountById
+     *
+     * @param traderId trader id
+     * @param fund     found amount (can't be 0)
+     * @return updated Account object
+     * @throws ca.jrvs.apps.trading.dao.ResourceNotFoundException if ticker is not found from IEX
+     * @throws org.springframework.dao.DataAccessException        if unable to retrieve data
+     * @throws IllegalArgumentException                           for invalid input
+     */
+    public Account deposit(Integer traderId, Double fund) {
+        if (fund <= 0D) throw new IllegalArgumentException("Bad deposit value");
+        Account account = accountDao.findByTraderId(traderId);
+        double newFund = account.getAmount() + fund;
+        return accountDao.updateAmountById(traderId, newFund);
+    }
 
-  /**
-   * Withdraw a fund from the account which is associated with the traderId
-   *
-   * - validate user input
-   * - account = accountDao.findByTraderId
-   * - accountDao.updateAmountById
-   *
-   * @param traderId trader ID
-   * @param fund amount can't be 0
-   * @return updated Account object
-   * @throws ca.jrvs.apps.trading.dao.ResourceNotFoundException if ticker is not found from IEX
-   * @throws org.springframework.dao.DataAccessException if unable to retrieve data
-   * @throws IllegalArgumentException for invalid input
-   */
-  public Account withdraw(Integer traderId, Double fund) {
-    // TODO
-    return null;
-  }
+    /**
+     * Withdraw a fund from the account which is associated with the traderId
+     * <p>
+     * - validate user input
+     * - account = accountDao.findByTraderId
+     * - accountDao.updateAmountById
+     *
+     * @param traderId trader ID
+     * @param fund     amount can't be 0
+     * @return updated Account object
+     * @throws ca.jrvs.apps.trading.dao.ResourceNotFoundException if ticker is not found from IEX
+     * @throws org.springframework.dao.DataAccessException        if unable to retrieve data
+     * @throws IllegalArgumentException                           for invalid input
+     */
+    public Account withdraw(Integer traderId, Double fund) {
+        if (fund <= 0D) throw new IllegalArgumentException("Bad withdraw value");
+        Account account = accountDao.findByTraderId(traderId);
+        double newFund = account.getAmount() - fund;
+        return accountDao.updateAmountById(traderId, newFund);
+    }
 }

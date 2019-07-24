@@ -18,6 +18,7 @@ public class TradingUtil {
     // service constants
     public static final String COOKIE_DATE_FORMAT = "EEE, d MMM yyyy HH:mm:ss z";
     public static final String COMMA = ",";
+    public static final String DATE_PATTERN = "yyyy-MM-dd";
     // Json object mapper singleton
     private static ObjectMapper mapper;
 
