@@ -2,31 +2,31 @@ package ca.jrvs.apps.trading.model.dto;
 
 public class MarketOrderDto {
 
-    private long accountId;
-    private long size;
-    private String ticket;
+    private int accountId;
+    private int size;
+    private String ticker;
 
-    public long getAccountId() {
+    public int getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
 
-    public long getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(long size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
-    public String getTicket() {
-        return ticket;
+    public String getTicker() {
+        return ticker;
     }
 
-    public void setTicket(String ticket) {
-        this.ticket = ticket;
+    public void setTicker(String ticker) {
+        this.ticker = ticker;
     }
 }

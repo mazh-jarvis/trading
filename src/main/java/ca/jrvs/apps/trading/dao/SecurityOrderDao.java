@@ -1,6 +1,7 @@
 package ca.jrvs.apps.trading.dao;
 
 import ca.jrvs.apps.trading.model.domain.SecurityOrder;
+import ca.jrvs.apps.trading.model.dto.MarketOrderDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,4 +49,10 @@ public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder, Integer> {
     public SecurityOrder findById(Integer integer) {
         return super.findById(integer);
     }
+/*
+    @Override
+    public SecurityOrder save(MarketOrderDto orderDto) {
+//        return super.save(entity);
+        return null;
+    }*/
 }

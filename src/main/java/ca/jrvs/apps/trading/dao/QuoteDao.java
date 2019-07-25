@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 @Component
-public class QuoteDao extends JdbcCrudDao {
+public class QuoteDao extends JdbcCrudDao<Quote, String> {
 
     public static final String TABLE_NAME = "quote";
     public static final String ID_NAME = "ticker";
@@ -34,8 +34,6 @@ public class QuoteDao extends JdbcCrudDao {
     }
 
     public List<Quote> findAll() {
-        /*List<Quote> quotes = this.jdbcTemplate.query("select ticker,last_price,bid_price,bid_size,ask_price,ask_size from public.quote",
-                new BeanPropertyRowMapper<>(Quote.class));*/
         String query = new QueryBuilder().selectAll().from(TABLE_NAME).toString();
         List<Quote> quotes = this.jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Quote.class));
         return quotes;
@@ -53,12 +51,12 @@ public class QuoteDao extends JdbcCrudDao {
 
     @Override
     public String getTableName() {
-        return null;
+        return TABLE_NAME;
     }
 
     @Override
     public String getIdName() {
-        return null;
+        return ID_NAME;
     }
 
     @Override
@@ -66,8 +64,4 @@ public class QuoteDao extends JdbcCrudDao {
         return Quote.class;
     }
 
-    @Override
-    public Object save(Object entity) {
-        return null;
-    }
 }

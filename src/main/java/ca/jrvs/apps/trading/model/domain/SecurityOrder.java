@@ -1,17 +1,23 @@
 package ca.jrvs.apps.trading.model.domain;
 
 import ca.jrvs.apps.trading.model.Entity;
-import ca.jrvs.apps.trading.model.enums.Status;
 
 public class SecurityOrder implements Entity<Integer> {
 
     private int id;
     private int account_id;
-    private Status status;
+    private OrderStatus status;
     private String ticker;
     private int size;
     private double price;
     private String notes;
+
+    public SecurityOrder(int account_id, String ticker, int size, double price) {
+        this.account_id = account_id;
+        this.ticker = ticker;
+        this.size = size;
+        this.price = price;
+    }
 
     @Override
     public Integer getId() { return this.id; }
@@ -25,7 +31,7 @@ public class SecurityOrder implements Entity<Integer> {
 
     public String getStatus() { return status.getStatus(); }
 
-    public void setStatus(String status) { this.status = Status.valueOf(status); }
+    public void setStatus(String status) { this.status = OrderStatus.valueOf(status); }
 
     public String getTicker() { return ticker; }
 

@@ -1,13 +1,13 @@
-package ca.jrvs.apps.trading.model.enums;
+package ca.jrvs.apps.trading.model.domain;
 
-public enum Status {
+public enum  OrderStatus {
     FILLED("Filled"),
     CANCELED("Canceled"),
     PENDING("Pending");
 
     private String status;
 
-    Status(String status) {
+    OrderStatus(String status) {
         this.status = status;
     }
 
