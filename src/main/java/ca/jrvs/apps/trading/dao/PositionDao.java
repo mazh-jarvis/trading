@@ -17,12 +17,12 @@ public class PositionDao {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountDao.class);
 
-    private static final String TABLE_NAME = "account";
-    private static final String ACCOUNT_ID = "account_id";
-    private static final String TICKER_ID = "ticker_id";
-    private static final String POSITION_TABLE = "position";
+    private static final String TABLE_NAME = "position";
+//    private static final String ACCOUNT_ID = "account_id";
+    private static final String TICKER_ID = "ticker";
+//    private static final String POSITION_TABLE = "position";
     private static final String PARAM = "?";
-    private static final String ID_NAME = "position";
+    private static final String ID_NAME = "account_id";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -31,11 +31,11 @@ public class PositionDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<Position> findByTraderId(Integer accountId) {
-        String query = new QueryBuilder().selectAll().from(TABLE_NAME).where(ACCOUNT_ID).is(PARAM).toString();
-        return jdbcTemplate.query(query, BeanPropertyRowMapper.newInstance(Position.class), accountId);
+    public List<Position> findByTraderId(Integer traderId) {
+        String query = new QueryBuilder().selectAll().from(TABLE_NAME).where(ID_NAME).is(PARAM).toString();
+        return jdbcTemplate.query(query, BeanPropertyRowMapper.newInstance(Position.class), traderId);
     }
-
+/*
     public Long findByIdAndTicker(Integer accountId, String ticker) {
         String query = new QueryBuilder().select(POSITION_TABLE).from(TABLE_NAME).where(ACCOUNT_ID).is(PARAM).and(TICKER_ID).is(PARAM).toString();
         Long position = 0L;
@@ -46,5 +46,6 @@ public class PositionDao {
                     accountId, ticker);
         }
         return position;
-    }
+    }*/
+
 }

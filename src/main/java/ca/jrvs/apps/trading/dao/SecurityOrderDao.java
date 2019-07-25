@@ -15,7 +15,7 @@ public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder, Integer> {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountDao.class);
 
-    private final static String TABLE_NAME = "security_dao";
+    private final static String TABLE_NAME = "security_order";
     private final static String ID_NAME = "id";
 
     private JdbcTemplate jdbcTemplate;
