@@ -12,6 +12,8 @@ import ca.jrvs.apps.trading.model.dto.SecurityRow;
 import ca.jrvs.apps.trading.model.view.PortfolioView;
 import ca.jrvs.apps.trading.model.view.TraderAccountView;
 import ca.jrvs.apps.trading.util.ResponseExceptionUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,8 @@ import java.util.List;
 @Service
 @Transactional
 public class DashboardService {
+
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     private TraderDao traderDao;
     private PositionDao positionDao;
@@ -53,7 +57,9 @@ public class DashboardService {
         try {
             Trader trader = traderDao.findById(traderId);
             Account account = accountDao.findByTraderId(traderId);
-            return new TraderAccountView(trader, account);
+            TraderAccountView view = new TraderAccountView(trader, account);
+            logger.info("view: ", view);
+            return view;
         } catch (Exception e) {
             throw ResponseExceptionUtil.getResponseStatusException(e);
         }
@@ -71,7 +77,7 @@ public class DashboardService {
      * @throws org.springframework.dao.DataAccessException        if unable to retrieve data
      * @throws IllegalArgumentException                           for invalid input
      */
-    public PortfolioView getProfileViewByTraderId(Integer traderId) {
+    public PortfolioView getPortfolioViewByTraderId(Integer traderId) {
         try {
             List<SecurityRow> securityRows = null;
             List<Position> positionList = positionDao.findByTraderId(traderId);

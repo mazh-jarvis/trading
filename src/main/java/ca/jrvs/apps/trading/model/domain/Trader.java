@@ -52,4 +52,16 @@ public class Trader implements Entity<Integer> {
     public Date getDob() { return this.dob; }
 
     public void setDob(Date date) { this.dob = date; }
+
+    @Override
+    public String toString() {
+        return "Trader{" +
+                "id=" + id +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", dob=" + dob +
+                ", country='" + country + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

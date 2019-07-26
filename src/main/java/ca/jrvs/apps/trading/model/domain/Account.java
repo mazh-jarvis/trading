@@ -31,4 +31,13 @@ public class Account implements Entity<Integer> {
     }
 
     public void setAmount(double amount) { this.amount = amount; }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", trader_id=" + trader_id +
+                ", amount=" + amount +
+                '}';
+    }
 }

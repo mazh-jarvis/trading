@@ -26,4 +26,12 @@ public class TraderAccountView {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    @Override
+    public String toString() {
+        return "TraderAccountView{" +
+                "trader=" + trader +
+                ", account=" + account +
+                '}';
+    }
 }
