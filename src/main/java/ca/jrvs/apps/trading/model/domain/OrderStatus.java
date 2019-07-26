@@ -1,9 +1,9 @@
 package ca.jrvs.apps.trading.model.domain;
 
 public enum  OrderStatus {
-    FILLED("Filled"),
-    CANCELED("Canceled"),
-    PENDING("Pending");
+    FILLED("FILLED"),
+    CANCELED("CANCELED"),
+    PENDING("PENDING");
 
     private String status;
 

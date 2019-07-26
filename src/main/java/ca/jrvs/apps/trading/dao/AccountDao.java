@@ -19,7 +19,6 @@ public class AccountDao extends JdbcCrudDao<Account, Integer> {
   private final static String ID_NAME = "id";
 
   private JdbcTemplate jdbcTemplate;
-
   private SimpleJdbcInsert simpleJdbcInsert;
 
   @Autowired

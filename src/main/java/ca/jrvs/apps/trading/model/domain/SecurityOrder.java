@@ -6,14 +6,14 @@ public class SecurityOrder implements Entity<Integer> {
 
     private int id;
     private int account_id;
-    private OrderStatus status;
+    private String status;
     private String ticker;
     private int size;
     private double price;
     private String notes;
 
-    public SecurityOrder(int account_id, String ticker, int size, double price) {
-        this.account_id = account_id;
+    public SecurityOrder(int accountId, String ticker, int size, double price) {
+        this.account_id = accountId;
         this.ticker = ticker;
         this.size = size;
         this.price = price;
@@ -29,9 +29,9 @@ public class SecurityOrder implements Entity<Integer> {
 
     public void setAccount_id(int account_id) { this.account_id = account_id; }
 
-    public String getStatus() { return status.getStatus(); }
+    public String getStatus() { return status; }
 
-    public void setStatus(String status) { this.status = OrderStatus.valueOf(status); }
+    public void setStatus(String status) { this.status = status; }
 
     public String getTicker() { return ticker; }
 

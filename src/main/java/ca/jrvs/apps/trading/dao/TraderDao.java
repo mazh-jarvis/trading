@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -33,11 +31,33 @@ public class TraderDao extends JdbcCrudDao<Trader, Integer> { //CrudRepository<T
   }
 
   @Override
-  public Trader save(Trader entity) {
-    SqlParameterSource parameterSource = new BeanPropertySqlParameterSource(entity);
-    Number newId = simpleInsert.executeAndReturnKey(parameterSource);
-    entity.setId(newId.intValue());
-    return entity;
+  public JdbcTemplate getJdbcTemplate() {
+    return this.jdbcTemplate;
+  }
+
+  @Override
+  public SimpleJdbcInsert getSimpleJdbcInsert() {
+    return this.simpleInsert;
+  }
+
+  @Override
+  public boolean existsById(Integer id) {
+    return false;
+  }
+
+  @Override
+  public String getTableName() {
+    return TABLE_NAME;
+  }
+
+  @Override
+  public String getIdName() {
+    return ID_COLUMN;
+  }
+
+  @Override
+  Class getEntityClass() {
+    return Trader.class;
   }
 
   @Override
@@ -54,35 +74,5 @@ public class TraderDao extends JdbcCrudDao<Trader, Integer> { //CrudRepository<T
       logger.debug("Can't find trader id:" + id, e);
     }
     return trader;
-  }
-
-  @Override
-  public boolean existsById(Integer id) {
-    return false;
-  }
-
-  @Override
-  public JdbcTemplate getJdbcTemplate() {
-    return this.jdbcTemplate;
-  }
-
-  @Override
-  public SimpleJdbcInsert getSimpleJdbcInsert() {
-    return this.simpleInsert;
-  }
-
-  @Override
-  public String getTableName() {
-    return TABLE_NAME;
-  }
-
-  @Override
-  public String getIdName() {
-    return ID_COLUMN;
-  }
-
-  @Override
-  Class getEntityClass() {
-    return Trader.class;
   }
 }

@@ -22,14 +22,16 @@ public class OrderService {
     private SecurityOrderDao securityOrderDao;
     private QuoteDao quoteDao;
     private PositionDao positionDao;
+    private FundTransferService transferService;
 
     @Autowired
     public OrderService(AccountDao accountDao, SecurityOrderDao securityOrderDao,
-                        QuoteDao quoteDao, PositionDao positionDao) {
+                        QuoteDao quoteDao, PositionDao positionDao, FundTransferService transferService) {
         this.accountDao = accountDao;
         this.securityOrderDao = securityOrderDao;
         this.quoteDao = quoteDao;
         this.positionDao = positionDao;
+        this.transferService = transferService;
     }
 
     /**
@@ -55,9 +57,10 @@ public class OrderService {
         int size = orderDto.getSize();
         int accountId = orderDto.getAccountId();
         String ticker = orderDto.getTicker();
-
         Quote quote = quoteDao.findById(ticker);
-        SecurityOrder order = new SecurityOrder(accountId, ticker, size, quote.getAskPrice());
+        double price = quote.getAskPrice();
+
+        SecurityOrder order = new SecurityOrder(accountId, ticker, size, price);
         Account account = accountDao.findById(orderDto.getAccountId());
 
         if (size == 0)
@@ -65,20 +68,26 @@ public class OrderService {
         if (quote == null)
             throw new IllegalArgumentException("Invalid ticker");
 
+        double fund = size * price;
+        int traderId = account.getTrader_id();
         // Buy when positive
         if (size > 0) {
-            if (account.getAmount() < size) {
+            if (account.getAmount() < fund) {
                 order.setStatus(OrderStatus.CANCELED.getStatus());
                 order.setNotes("Insufficient funds");
-            } else
+            } else {
+                transferService.withdraw(traderId, fund);
                 order.setStatus(OrderStatus.FILLED.getStatus());
+            }
         } else {
             Long position = positionDao.findByIdAndTicker(accountId, ticker);
             if (position + size < 0) {
                 order.setStatus(OrderStatus.CANCELED.getStatus());
                 order.setNotes("Insufficient positions");
-            } else
+            } else {
+                transferService.deposit(traderId, fund);
                 order.setStatus(OrderStatus.FILLED.getStatus());
+            }
         }
 
         return securityOrderDao.save(order);
