@@ -70,27 +70,30 @@ public class OrderService {
 
         double fund = size * price;
         int traderId = account.getTrader_id();
+        double balance = account.getAmount();
         // Buy when positive
         if (size > 0) {
-            if (account.getAmount() < fund) {
+            if (balance < fund) {
                 order.setStatus(OrderStatus.CANCELED.getStatus());
                 order.setNotes("Insufficient funds");
+                logger.debug("Insufficient funds. Account balance: ", balance, " with id: ", accountId);
             } else {
                 transferService.withdraw(traderId, fund);
                 order.setStatus(OrderStatus.FILLED.getStatus());
+                logger.info("Withdrawal successful. Preparing new position.");
             }
         } else {
             Long position = positionDao.findByIdAndTicker(accountId, ticker);
             if (position + size < 0) {
                 order.setStatus(OrderStatus.CANCELED.getStatus());
                 order.setNotes("Insufficient positions");
+                logger.debug("Insufficient position: ", position, " with size: ", size);
             } else {
                 transferService.deposit(traderId, fund);
                 order.setStatus(OrderStatus.FILLED.getStatus());
+                logger.info("Taking funds from requested position was successful");
             }
         }
-
         return securityOrderDao.save(order);
     }
-
 }
