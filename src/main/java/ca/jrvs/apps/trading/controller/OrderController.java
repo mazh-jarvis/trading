@@ -4,6 +4,7 @@ import ca.jrvs.apps.trading.model.domain.SecurityOrder;
 import ca.jrvs.apps.trading.model.dto.MarketOrderDto;
 import ca.jrvs.apps.trading.service.OrderService;
 import ca.jrvs.apps.trading.util.ResponseExceptionUtil;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    @ApiOperation("Submit a market order")
     @PostMapping(path = "/marketOrder")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody

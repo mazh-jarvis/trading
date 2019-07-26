@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 
 import ca.jrvs.apps.trading.util.ResponseExceptionUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,7 @@ public class QuoteController {
     this.marketDataDao = marketDataDao;
   }
 
+  @ApiOperation("Update the quote data source using the Iex data")
   @PutMapping(path = "/iexMarketData")
   @ResponseStatus(HttpStatus.OK)
   public void updateMarketData() {
@@ -46,6 +49,7 @@ public class QuoteController {
     }
   }
 
+  @ApiOperation("Update a given quote in the data source")
   @PutMapping(path = "/")
   @ResponseStatus(HttpStatus.OK)
   public void putQuote(@RequestBody Quote quote) {
@@ -56,6 +60,7 @@ public class QuoteController {
     }
   }
 
+  @ApiOperation("Add a new ticker to the daily list")
   @PostMapping(path = "/tickerId/{tickerId}")
   @ResponseStatus(HttpStatus.CREATED)
   public void createQuote(@PathVariable String tickerId) {
@@ -66,7 +71,7 @@ public class QuoteController {
     }
   }
 
-
+  @ApiOperation(value = "Show the daily list")
   @GetMapping(path = "/dailyList")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -78,6 +83,7 @@ public class QuoteController {
     }
   }
 
+  @ApiOperation("Show quote")
   @GetMapping(path = "/iex/ticker/{ticker}")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
