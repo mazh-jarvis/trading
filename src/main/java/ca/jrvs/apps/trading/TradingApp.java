@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
@@ -34,7 +33,7 @@ public class TradingApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        quoteService.initQuotes(Arrays.asList(initDailyList));
-        quoteService.updateMarketData();
+        /*quoteService.initQuotes(Arrays.asList(initDailyList));
+        quoteService.updateMarketData();*/
     }
 }

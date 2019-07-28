@@ -1,5 +1,7 @@
 package ca.jrvs.apps.trading.dao;
 
+import com.google.common.primitives.UnsignedInts;
+
 public class QueryBuilder {
 
     public static final String DEFAULT_SCHEMA = "PUBLIC";
@@ -44,6 +46,12 @@ public class QueryBuilder {
         spaceOut();
         return this;
     }
+    public QueryBuilder isString(String value) {
+        this.query.append(EQUAL_CHAR).append('\'').append(value).append('\'');
+        spaceOut();
+        return this;
+    }
+
     public QueryBuilder and(String attribute) {
         this.query.append("AND ").append(attribute);
         spaceOut();
@@ -70,5 +78,29 @@ public class QueryBuilder {
     @Override
     public String toString() {
         return this.query.toString();
+    }
+
+    public QueryBuilder updateNamed(String table) {
+        this.query.append("UPDATE ").append(table);
+        spaceOut();
+        return this;
+    }
+
+    /**
+     * Update parameterized columns. Used together with updateNamed
+     * @param column
+     * @return
+     */
+    public QueryBuilder set(String... column) {
+        this.query.append("SET ");
+        StringBuilder columnBuilder = new StringBuilder();
+        for (String col: column) {
+            if (columnBuilder.length() != 0)
+                columnBuilder.append(", ");
+            columnBuilder.append(col).append(" = :").append(col);
+        }
+        this.query.append(columnBuilder);
+        spaceOut();
+        return this;
     }
 }

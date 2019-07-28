@@ -113,11 +113,11 @@ public class IexQuote {
     @JsonProperty("avgTotalVolume")
     private Long avgTotalVolume;
     @JsonProperty("iexBidPrice")
-    private Long iexBidPrice;
+    private Double iexBidPrice;
     @JsonProperty("iexBidSize")
     private Long iexBidSize;
     @JsonProperty("iexAskPrice")
-    private Long iexAskPrice;
+    private Double iexAskPrice;
     @JsonProperty("iexAskSize")
     private Long iexAskSize;
     @JsonProperty("marketCap")
@@ -426,12 +426,12 @@ public class IexQuote {
     }
 
     @JsonProperty("iexBidPrice")
-    public Long getIexBidPrice() {
+    public Double getIexBidPrice() {
         return iexBidPrice;
     }
 
     @JsonProperty("iexBidPrice")
-    public void setIexBidPrice(Long iexBidPrice) {
+    public void setIexBidPrice(Double iexBidPrice) {
         this.iexBidPrice = iexBidPrice;
     }
 
@@ -446,12 +446,12 @@ public class IexQuote {
     }
 
     @JsonProperty("iexAskPrice")
-    public Long getIexAskPrice() {
+    public Double getIexAskPrice() {
         return iexAskPrice;
     }
 
     @JsonProperty("iexAskPrice")
-    public void setIexAskPrice(Long iexAskPrice) {
+    public void setIexAskPrice(Double iexAskPrice) {
         this.iexAskPrice = iexAskPrice;
     }
 

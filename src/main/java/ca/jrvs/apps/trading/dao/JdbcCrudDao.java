@@ -54,9 +54,9 @@ public abstract class JdbcCrudDao<E extends Entity, ID> implements CrudRepositor
     E t = null;
     String selectSql = new QueryBuilder().selectAll().from(getTableName()).where(idName).isParameterized().toString();
 
-    //Advanced: handle read + update race condition
+    //Advanced: handle read + updateNamed race condition
     if (forUpdate) {
-      selectSql += " for update";
+      selectSql += " for updateNamed";
     }
     logger.info(selectSql);
 

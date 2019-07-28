@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -79,17 +80,12 @@ public class DashboardService {
      */
     public PortfolioView getPortfolioViewByTraderId(Integer traderId) {
         try {
-            List<SecurityRow> securityRows = null;
             List<Position> positionList = positionDao.findByTraderId(traderId);
 
-            if (positionList.isEmpty() == false)
-                securityRows = new ArrayList<>();
+            List<SecurityRow> securityRows = positionList.stream().map(p ->
+                    new SecurityRow(p, quoteDao.findById(p.getTicker()))
+            ).collect(Collectors.toList());
 
-            for (Position position : positionList) {
-                String ticker = position.getTicker();
-                Quote quote = quoteDao.findById(ticker);
-                securityRows.add(new SecurityRow(position, quote, ticker));
-            }
             return new PortfolioView(securityRows);
         } catch (Exception e) {
             throw ResponseExceptionUtil.getResponseStatusException(e);

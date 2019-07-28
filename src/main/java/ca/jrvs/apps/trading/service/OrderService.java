@@ -42,7 +42,7 @@ public class OrderService {
      * - Handle buy or sell order
      * - buy order : check account balance
      * - sell order: check position for the ticker/symbol
-     * - (please don't forget to update securityOrder.status)
+     * - (please don't forget to updateNamed securityOrder.status)
      * - Save and return securityOrder
      * <p>
      * NOTE: you will need to some helper methods (protected or private)
@@ -58,7 +58,7 @@ public class OrderService {
         int accountId = orderDto.getAccountId();
         String ticker = orderDto.getTicker();
         Quote quote = quoteDao.findById(ticker);
-        double price = quote.getAskPrice();
+        double price = quote.getAsk_price();
 
         SecurityOrder order = new SecurityOrder(accountId, ticker, size, price);
         Account account = accountDao.findById(orderDto.getAccountId());

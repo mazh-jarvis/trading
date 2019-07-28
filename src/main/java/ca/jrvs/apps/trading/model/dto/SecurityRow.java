@@ -9,10 +9,10 @@ public class SecurityRow {
     private Quote quote;
     private String ticker;
 
-    public SecurityRow(Position position, Quote quote, String ticker) {
+    public SecurityRow(Position position, Quote quote) {
         this.position = position;
         this.quote = quote;
-        this.ticker = ticker;
+        this.ticker = position.getTicker();
     }
 
     public Position getPosition() {
