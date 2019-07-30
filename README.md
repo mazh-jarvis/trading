@@ -83,7 +83,7 @@ mvn clean package -DskipTests
 
 ### Postgres initialization
 Database schema:
-```postgres-psql
+```sql
 -- Drop any existing tables
 DROP TABLE IF EXISTS public.trader cascade;
 DROP TABLE IF EXISTS public.account cascade;
@@ -150,7 +150,7 @@ GROUP BY account_id, ticker;
 ```
 
 Database initialization script:
-```postgres-psql
+```sql
 CREATE DATABASE jrvstrading;
 GRANT ALL PRIVILEGES ON DATABASE jrvstrading TO postgres;
 
