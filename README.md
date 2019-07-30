@@ -1,12 +1,11 @@
 # Introduction
-<p>
+
 A trading application that simulates managing stocks associated with an account. The target users for this app are front-end, full-stack, and back-end(testing purposes) developers. This app is an example of microservices that uses [IEX API](https://iexcloud.io/) to retrieve stock data and stores information using a Postgres database.
-</p>
 
 - [Quick Start](#quick-start)
     - [Git clone and Maven build](#git-clone-and-maven-build)
     - [Postgres initialization](#postgres-initialization)
-    - [How to consume REST API?](#how-to-consume-rest-api?)
+    - [How to consume REST API?](#how-to-consume-rest-api)
 - [REST API Usage](#rest-api-usage)
     - [Swagger](#swagger)
     - [Quote controller](#quote-controller)
@@ -68,6 +67,11 @@ psql -h $PSQL_HOST -U $PSQL_USER -d jrvstrading -f ./sql_ddl/schema.sql
 
 
 ### Git clone and Maven build
+```
+git clone https://github.com/mazh-jarvis/trading.git
+mvn install ???
+```
+
 Todo
 
 ### Postgres initialization
@@ -82,6 +86,8 @@ todo
 ## Quote controller
 todo
 ## Trader controller
+todo
+## Order controller
 todo
 ## App controller
 todo

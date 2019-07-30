@@ -17,19 +17,6 @@ public class AppConfig {
 
     private Logger logger = LoggerFactory.getLogger(AppConfig.class);
 
-  /*@Value("${iex.host}")
-  private String iex_host;*/
-/*
-  @Bean
-  public PlatformTransactionManager txManager(DataSource dataSource) {
-    return null;
-  }*/
-
-  /*@Bean
-  public MarketDataConfig marketDataConfig() {
-    return null;
-  }*/
-
     @Bean
     public DataSource dataSource(@Value("${app.db.driver}") String driver,
                                  @Value("${app.db.url}") String jdbcUrl,
