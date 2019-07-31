@@ -160,7 +160,9 @@ mvn clean package -DskipTests
 ```
 
 ### How to consume REST API?
-Swagger configuration for Postman:
+[Postman](https://www.getpostman.com/) is a great application to test the REST API.
+- Make sure the application server is running.
+- Copy the following configuration and import it into Postman as *raw text*:
 ```json
 {
   "swagger": "2.0",
