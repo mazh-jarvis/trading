@@ -68,4 +68,10 @@ public class QuoteDao extends JdbcCrudDao<Quote, String> {
         return Quote.class;
     }
 
+    @Override
+    public Quote save(Quote entity) {
+        SqlParameterSource parameterSource = new BeanPropertySqlParameterSource(entity);
+        getSimpleJdbcInsert().execute(parameterSource);
+        return entity;
+    }
 }
