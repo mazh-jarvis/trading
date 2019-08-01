@@ -3,6 +3,7 @@ package ca.jrvs.apps.trading.util;
 import ca.jrvs.apps.trading.dao.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,7 +18,10 @@ public class ResponseExceptionUtil {
         } else if (e instanceof ResourceNotFoundException) {
             logger.debug("Not found!", e);
             return new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        } else {
+        } else if (e instanceof DuplicateKeyException) {
+            logger.debug("Key already exists!", e);
+            return new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        } else{
             logger.error("Internal error!", e);
             return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
