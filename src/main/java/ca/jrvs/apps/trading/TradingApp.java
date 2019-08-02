@@ -33,7 +33,7 @@ public class TradingApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*quoteService.initQuotes(Arrays.asList(initDailyList));
-        quoteService.updateMarketData();*/
+        quoteService.initQuotes(Arrays.asList(initDailyList));
+        quoteService.updateMarketData();
     }
 }
