@@ -34,7 +34,7 @@ public class DashboardServiceTest {
   private QuoteDao quoteDao;
   //inject mocked dependencies to the testing class via constructor
   @InjectMocks
-  DashboardService dashboardService;
+  private DashboardService dashboardService;
 
   private Trader savedTrader;
   private Account savedAccount;

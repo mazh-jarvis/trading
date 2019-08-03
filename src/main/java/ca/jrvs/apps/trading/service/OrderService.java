@@ -74,7 +74,7 @@ public class OrderService {
         }
     }
 
-    protected void placeOrder(double balance, SecurityOrder order) {
+    private void placeOrder(double balance, SecurityOrder order) {
         int id = order.getAccount_id();
         int size = order.getSize();
         double price = order.getPrice();
