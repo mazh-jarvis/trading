@@ -1113,18 +1113,43 @@ mvn clean package -DskipTests
 
 # Rest API Usage
 ## Swagger
-todo
-## Quote controller
-todo
-## Trader controller
-todo
-## Order controller
-todo
-## App controller
-(Currently unavailable)
-## Dashboard controller
-todo
+Swagger provides a simple web interface in order to interact with the Trader App API.
 
+The user will receive a response(or an error), after submitting a request.
+
+Certain requests require the user to fill in some data before submission.
+
+## Quote controller
+The quote controller manages endpoints for an entity representing a stock quote, consisting of a ticker as the identifier, ask price, bid price, and the latest price.
+
+Example:
+![](assets/images/swagger-ui-quote-ex.png)
+## Trader controller
+The trader controller manages endpoints for an entity representing an individual with an associated account.
+
+Personal information of a trader include their first and last name, date of birth, country, and email address. 
+
+Example:
+![](assets/images/swagger-ui-trader-ex.png)
+## Order controller
+The order controller is responsible for handling user orders. A user may sell or buy one or more stocks. 
+
+Any transaction is reflected on the trader's account.
+
+Example:
+![](assets/images/swagger-ui-order-ex.png)
+## App controller
+The app controller simply reports the health of the application server.
+
+Example:
+![](assets/images/swagger-ui-app-example.png)
+## Dashboard controller
+The dashboard controller provides two general overviews for an existing trader:
+- Trader Portfolio
+- Trader Profile  
+
+Example:
+![](assets/images/swagger-ui-dashboard-ex.png)
 # Architecture
 ### Class diagram
 ![](assets/images/TradingAppCD.png)
