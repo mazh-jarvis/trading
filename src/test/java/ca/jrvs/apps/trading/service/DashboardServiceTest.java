@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -53,10 +54,12 @@ public class DashboardServiceTest {
     savedAccount.setId(1);
     savedAccount.setTrader_id(savedTrader.getId());
     savedAccount.setAmount(100.0);
+
+    MockitoAnnotations.initMocks(this);
   }
 
   @Test
-  public void buildProfileViewByTraderId() throws JsonProcessingException {
+  public void buildProfileViewByTraderId() {
     when(accountDao.findByTraderId(anyInt())).thenReturn(savedAccount);
 
     Position p1 = new Position();

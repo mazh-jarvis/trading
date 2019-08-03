@@ -6,6 +6,7 @@ import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.dao.SecurityOrderDao;
 import ca.jrvs.apps.trading.model.domain.*;
 import ca.jrvs.apps.trading.model.dto.MarketOrderDto;
+import ca.jrvs.apps.trading.util.ResponseExceptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,47 +54,55 @@ public class OrderService {
      * @throws IllegalArgumentException                    for invalid input
      */
     public SecurityOrder executeMarketOrder(MarketOrderDto orderDto) {
+        try {
+            int size = orderDto.getSize();
+            if (size == 0)
+                throw new IllegalArgumentException("Order size is zero");
+            int accountId = orderDto.getAccountId();
+            String ticker = orderDto.getTicker();
+            Quote quote = quoteDao.findById(ticker);
+            double price = quote.getAsk_price();
 
-        int size = orderDto.getSize();
-        int accountId = orderDto.getAccountId();
-        String ticker = orderDto.getTicker();
-        Quote quote = quoteDao.findById(ticker);
-        double price = quote.getAsk_price();
+            SecurityOrder order = new SecurityOrder(accountId, ticker, size, price);
+            Account account = accountDao.findById(orderDto.getAccountId());
 
-        SecurityOrder order = new SecurityOrder(accountId, ticker, size, price);
-        Account account = accountDao.findById(orderDto.getAccountId());
+            placeOrder(account.getAmount(), order);
 
-        if (size == 0)
-            throw new IllegalArgumentException("Order size is zero");
-        if (quote == null)
-            throw new IllegalArgumentException("Invalid ticker");
+            return securityOrderDao.save(order);
+        } catch (Exception e) {
+            throw ResponseExceptionUtil.getResponseStatusException(e);
+        }
+    }
 
+    protected void placeOrder(double balance, SecurityOrder order) {
+        int id = order.getAccount_id();
+        int size = order.getSize();
+        double price = order.getPrice();
         double fund = size * price;
-        int traderId = account.getTrader_id();
-        double balance = account.getAmount();
+
         // Buy when positive
-        if (size > 0) {
+        boolean doBuy = size > 0;
+        if (doBuy) {
             if (balance < fund) {
                 order.setStatus(OrderStatus.CANCELED.getStatus());
                 order.setNotes("Insufficient funds");
-                logger.debug("Insufficient funds. Account balance: ", balance, " with id: ", accountId);
+                logger.debug("Insufficient funds. Account balance: ", balance, " with id: ", id);
             } else {
-                transferService.withdraw(traderId, fund);
+                transferService.withdraw(id, fund);
                 order.setStatus(OrderStatus.FILLED.getStatus());
                 logger.info("Withdrawal successful. Preparing new position.");
             }
         } else {
-            Long position = positionDao.findByIdAndTicker(accountId, ticker);
+            Long position = positionDao.findByIdAndTicker(id, order.getTicker());
             if (position + size < 0) {
                 order.setStatus(OrderStatus.CANCELED.getStatus());
                 order.setNotes("Insufficient positions");
                 logger.debug("Insufficient position: ", position, " with size: ", size);
             } else {
-                transferService.deposit(traderId, fund);
+                transferService.deposit(id, fund);
                 order.setStatus(OrderStatus.FILLED.getStatus());
                 logger.info("Taking funds from requested position was successful");
             }
         }
-        return securityOrderDao.save(order);
     }
 }
