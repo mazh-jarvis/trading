@@ -1113,7 +1113,7 @@ mvn clean package -DskipTests
 
 # Rest API Usage
 ## Swagger
-Swagger provides a simple web interface in order to interact with the Trader App API.
+[Swagger](https://swagger.io/) provides a simple web interface in order to interact with the Trader App API.
 
 The user will receive a response(or an error), after submitting a request.
 
@@ -1158,15 +1158,23 @@ Example:
 ![](assets/images/TradingAppER.png)
 
 ### Controller
-todo
+A controller is a type of directive that is responsible for handling HTTP requests.
 ### Service
-todo
+A service contains the business logic for a certain component.
+
+They are typically invoked from a corresponding controller.
 ### DAO
-todo
+A Data Access Object(DAO) is responsible for the transactions required to be made with the database.
 ### SpringBoot
-todo
+[Spring Boot](https://spring.io/projects/spring-boot) is a wrapper for the Spring framework. It facilitates dependency injection.
 ### Postgres and IEX
-todo
+[Postgres](https://postgresql.org/) is a relational database management system. It supports the object-oriented paradigm and provides extra functional API for the developers' convenience.
+
+[Iex Cloud](https://iexcloud.io) provides near real-time trading data for stocks through its API endpoints. It is utilized in Trading App for creating and updating quote entities.
 
 # Improvements
-todo (5+ points)
+- Provide ability to bid trades
+- Add option for price change alerts via email notifications
+- Provide times of availability to communicate with the IEX Cloud API.
+- Consider the option to use an in-memory database such as H2 to improve performance. 
+- Log extensive server debug, information and warnings as appropriate, and send email notification to IT manager to resolve server issues.
