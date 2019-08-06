@@ -6,6 +6,7 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,12 +19,31 @@ public class AppConfig {
     private Logger logger = LoggerFactory.getLogger(AppConfig.class);
 
     @Bean
+    @ConditionalOnProperty(name = "RDS_PORT", matchIfMissing = true)
     public DataSource dataSource(@Value("${app.db.driver}") String driver,
                                  @Value("${app.db.url}") String jdbcUrl,
                                  @Value("${app.db.user}") String user,
                                  @Value("${app.db.password}") String password) {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(driver);
+        dataSource.setUrl(jdbcUrl);
+        dataSource.setUsername(user);
+        dataSource.setPassword(password);
+        return dataSource;
+    }
+
+    @Bean
+    @ConditionalOnProperty(name = "RDS_PORT", value = "5432")
+    public DataSource dataSource(@Value("${app.db.driver}") String driver,
+                                 @Value("${RDS_DB_NAME}") String dbName,
+                                 @Value("${RDS_HOSTNAME}") String hostName,
+                                 @Value("${RDS_USERNAME}") String user,
+                                 @Value("${RDS_PASSWORD}") String password,
+                                 @Value("${RDS_PORT}") Integer port) {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName(driver);
+        String jdbcUrl = new StringBuilder(hostName).append(":").append(port)
+                .append("/").append(dbName).toString();
         dataSource.setUrl(jdbcUrl);
         dataSource.setUsername(user);
         dataSource.setPassword(password);

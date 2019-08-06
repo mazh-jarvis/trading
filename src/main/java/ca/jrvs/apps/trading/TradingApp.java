@@ -17,7 +17,6 @@ import java.util.Arrays;
         {JdbcTemplateAutoConfiguration.class,
                 DataSourceAutoConfiguration.class,
                 HibernateJpaAutoConfiguration.class})
-//@EnableConfigurationProperties
 public class TradingApp implements CommandLineRunner {
 
     @Autowired
@@ -33,7 +32,7 @@ public class TradingApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        quoteService.initQuotes(Arrays.asList(initDailyList));
-        quoteService.updateMarketData();
+        /*quoteService.initQuotes(Arrays.asList(initDailyList));
+        quoteService.updateMarketData();*/
     }
 }
