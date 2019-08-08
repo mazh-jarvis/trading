@@ -23,7 +23,7 @@ public class TradingApp implements CommandLineRunner {
     private DataSource dataSource;
     @Autowired
     private QuoteService quoteService;
-    @Value("${app.init.dailyList}")
+    @Value("${app.init.dailyList:}")
     private String[] initDailyList;
 
     public static void main(String[] args) {
