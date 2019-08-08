@@ -10,26 +10,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class MarketDataConfig {
 
-    private String host;
+    public static final String HOST = "https://cloud-sse.iexapis.com/stable";
     private String token;
 
     private Logger logger = LoggerFactory.getLogger(MarketDataDao.class);
 
   @Autowired
     public MarketDataConfig(
-          @Value("${iex.host}") String host,
-          @Value("${iex.token}") String token) {
-        logger.info("[RESOLVED] host: " + host);
-        this.host = host;
+          @Value("${IEX_PUB_TOKEN}") String token) {
+        logger.info("[RESOLVED] iex token: " + token);
         this.token = token;
     }
 
     public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
+        return HOST;
     }
 
     public String getToken() {

@@ -16,39 +16,49 @@ import javax.sql.DataSource;
 @Configuration
 public class AppConfig {
 
+
+    private static final String PSQL_DRIVER = "org.postgresql.Driver";
     private Logger logger = LoggerFactory.getLogger(AppConfig.class);
 
-    @Bean
-    @ConditionalOnProperty(name = "RDS_PORT", matchIfMissing = true)
-    public DataSource dataSource(@Value("${app.db.driver}") String driver,
-                                 @Value("${app.db.url}") String jdbcUrl,
-                                 @Value("${app.db.user}") String user,
-                                 @Value("${app.db.password}") String password) {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(driver);
-        dataSource.setUrl(jdbcUrl);
-        dataSource.setUsername(user);
-        dataSource.setPassword(password);
-        return dataSource;
-    }
+    @Bean("dataSource")
+    @ConditionalOnProperty(value = "RDS_PORT")
+    public DataSource dataSource(@Value("${RDS_DB_NAME:}") String dbName,
+                                 @Value("${RDS_HOSTNAME:}") String hostName,
+                                 @Value("${RDS_USERNAME:}") String user,
+                                 @Value("${RDS_PASSWORD:}") String password,
+                                 @Value("${RDS_PORT:}") Integer port) {
+        logger.info("RDS HOST: " + hostName);
+        logger.info("RDS USER: " + user);
+        logger.info("RDS PASSWORD: " + password);
 
-    @Bean
-    @ConditionalOnProperty(name = "RDS_PORT", value = "5432")
-    public DataSource dataSource(@Value("${app.db.driver}") String driver,
-                                 @Value("${RDS_DB_NAME}") String dbName,
-                                 @Value("${RDS_HOSTNAME}") String hostName,
-                                 @Value("${RDS_USERNAME}") String user,
-                                 @Value("${RDS_PASSWORD}") String password,
-                                 @Value("${RDS_PORT}") Integer port) {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(driver);
-        String jdbcUrl = new StringBuilder(hostName).append(":").append(port)
+        dataSource.setDriverClassName(PSQL_DRIVER);
+        String jdbcUrl = new StringBuilder("jdbc:postgresql://").append(hostName).append(":").append(port)
                 .append("/").append(dbName).toString();
         dataSource.setUrl(jdbcUrl);
         dataSource.setUsername(user);
         dataSource.setPassword(password);
         return dataSource;
     }
+
+    @Bean("dataSource")
+    @ConditionalOnProperty(value = "PSQL_USER")
+    public DataSource dataSource2(
+                                 @Value("${PSQL_USER:}") String user,
+                                 @Value("${PSQL_PASSWORD:}") String password,
+                                 @Value("${PSQL_URL:}") String jdbcUrl) {
+        logger.info("DB URL: " + jdbcUrl);
+        logger.info("DB USER: " + user);
+        logger.info("DB PASSWORD: " + password);
+
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setDriverClassName(PSQL_DRIVER);
+        dataSource.setUrl(jdbcUrl);
+        dataSource.setUsername(user);
+        dataSource.setPassword(password);
+        return dataSource;
+    }
+
 
     //http://bit.ly/2tWTmzQ connectionPool
     @Bean
