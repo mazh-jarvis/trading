@@ -1,7 +1,8 @@
 pipeline{
-    agent: any
+    agent any
     tools {
         maven "M3"
+        jdk "java8"
     }
 
     environment {
@@ -11,7 +12,7 @@ pipeline{
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean package'
                 echo "app_name is ${env.app_name}"
                 archiveArtifacts 'target/*zip'
             }
