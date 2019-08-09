@@ -87,7 +87,6 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.basedir}</outputDirectory>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
                                 <descriptor>src/assembly/elastic-beanstalk.xml</descriptor>
