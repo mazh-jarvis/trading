@@ -3,7 +3,7 @@
 #exit if there is an error
 set -e
 
-if [ -z "$2" ]
+if [[ -z "$2" ]]
 then
   echo "usage: $0 eb_app_name eb_env_name"
   exit 1
