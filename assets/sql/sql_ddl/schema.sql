@@ -46,6 +46,7 @@ CREATE TABLE public.security_order
   "size"     int4    NOT NULL,
   price      float8  NULL,
   notes      varchar NULL,
+  ts    TIMESTAMPTZ DEFAULT NOT NULL,
   CONSTRAINT security_order_pk PRIMARY KEY (id),
   CONSTRAINT security_order_account_fk FOREIGN KEY (account_id) REFERENCES account (id),
   CONSTRAINT security_order_quote_fk FOREIGN KEY (ticker) REFERENCES quote (ticker)
