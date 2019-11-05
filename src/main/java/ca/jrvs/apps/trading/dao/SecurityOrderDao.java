@@ -19,6 +19,7 @@ public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder, Integer> {
 
     private final static String TABLE_NAME = "security_order";
     private final static String ID_NAME = "id";
+    private final static String[] COLUMNS = {"account_id", "notes", "price", "size", "status", "ticker"};
 
     private JdbcTemplate jdbcTemplate;
     private SimpleJdbcInsert jdbcInsert;
@@ -27,6 +28,7 @@ public class SecurityOrderDao extends JdbcCrudDao<SecurityOrder, Integer> {
     public SecurityOrderDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
         jdbcInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE_NAME)
+                .usingColumns(COLUMNS)
                 .usingGeneratedKeyColumns(ID_NAME);
     }
 
