@@ -6,6 +6,14 @@ public class MarketOrderDto {
     private int size;
     private String ticker;
 
+    public MarketOrderDto() { }
+
+    public MarketOrderDto(int accountId, int size, String ticker) {
+        this.accountId = accountId;
+        this.size = size;
+        this.ticker = ticker;
+    }
+
     public int getAccountId() {
         return accountId;
     }
